@@ -1,19 +1,15 @@
-# Пример для проекта на Node.js
+# file: .github/workflows/jobs-run.yml
+name: jobs-run
+# on – определяет события, которые запускают воркфлоу
+on: push
+
 jobs:
   build: # имя взято для примера
     runs-on: ubuntu-latest
 
     steps:
-      # Клонируем репозиторий
       - uses: actions/checkout@v4
-      # Устанавливаем Node.js
       - uses: actions/setup-node@v6
-      # Ставим зависимости
-      - run: npm install
-      # Запускаем линтер
-      - run: npm run lint
-      # Запускаем тесты
-      # у шагов может быть имя, иногда это помогает отладке
-      # имя выводится на Github при просмотре сборки
-      - name: run test
-        run: npm test # name и run относятся к одной задаче, поэтому дефис ставится только перед name
+      - run: make setup
+      - run: make test
+      - run: make lint
